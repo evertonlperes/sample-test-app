@@ -1,0 +1,23 @@
+version: '3.9'
+services: 
+  web:
+    container_name: web-container
+    stdin_open: true
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports: 
+      - "3000:3000"
+    volumes: 
+      - /app/node_modules
+      - .:/app
+  tests:
+    container_name: dev-container
+    build: 
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes: 
+      - /app/node_modules
+      - .:/app
+    command: ["npm", "run", "test"]
+    
